@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    android:id="@+id/cardview"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="7dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/image_event"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="center"
+        tools:src="@drawable/sample"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="1dp"/>
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_gravity="bottom"
+       android:background="@color/black_semi_trans">
+
+     <TextView
+         android:id="@+id/text_eventname"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         tools:text="sports and fun"
+         android:textSize="17sp"
+         android:gravity="center"
+         android:textColor="@android:color/white"/>
+
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:id="@+id/text_eventdate"
+         tools:text="13-12-08"
+         android:layout_below="@+id/text_eventname"
+         android:drawableLeft="@drawable/calender"
+         android:textSize="15sp"
+         android:layout_marginBottom="7dp"
+         android:layout_marginRight="7dp"
+         android:layout_marginLeft="7dp"
+         android:layout_alignParentRight="true"
+         android:drawableStart="@drawable/calender"
+         android:textColor="@android:color/white"
+         />
+
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         tools:text="hyderabad"
+         android:drawableLeft="@drawable/location"
+         android:id="@+id/text_eventlocation"
+         android:textSize="15sp"
+         android:layout_below="@+id/text_eventname"
+         android:textColor="@android:color/white"
+         android:layout_marginBottom="7dp"
+         android:layout_marginRight="7dp"
+         android:layout_marginLeft="7dp"
+         android:drawableStart="@drawable/location"
+         />
+   </RelativeLayout>
+    </FrameLayout>
+</android.support.v7.widget.CardView>
