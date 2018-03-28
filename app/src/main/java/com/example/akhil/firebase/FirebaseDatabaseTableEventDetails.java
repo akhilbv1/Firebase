@@ -10,8 +10,16 @@ import java.util.List;
 public class FirebaseDatabaseTableEventDetails implements Parcelable {
 
 
-  String eventName,eventDescription,eventDate,eventLocation,eventImage;
+  String eventId,eventName,eventDescription,eventDate,eventLocation,eventImage;
   List<String> punchedlist;
+
+  public String getEventId() {
+    return eventId;
+  }
+
+  public void setEventId(String eventId) {
+    this.eventId = eventId;
+  }
 
   public String getEventDate() {
     return eventDate;

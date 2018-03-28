@@ -21,15 +21,24 @@ import static android.support.v4.content.res.ResourcesCompat.getDrawable;
 
 public class EventDetailsListAdapter extends RecyclerView.Adapter<EventDetailsListAdapter.MyViewHolder> {
   private List<FirebaseDatabaseTableEventDetails> mlist;
-  private Context context;
+    private List<EventsDetailsBodyModel> eventsDetailsList;
+
+    private Context context;
   private String uid;
 
-  public EventDetailsListAdapter(List<FirebaseDatabaseTableEventDetails> mlist,Context context,String uid){
+/*  public EventDetailsListAdapter(List<FirebaseDatabaseTableEventDetails> mlist,Context context,String uid){
     this.mlist = mlist;
     this.context = context;
     this.uid = uid;
     notifyDataSetChanged();
-  }
+  }*/
+
+    public EventDetailsListAdapter(List<EventsDetailsBodyModel> mlist,Context context,String uid){
+        this.eventsDetailsList = mlist;
+        this.context = context;
+        this.uid = uid;
+        notifyDataSetChanged();
+    }
   @Override
   public EventDetailsListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_latest,parent,false);
@@ -42,14 +51,14 @@ public class EventDetailsListAdapter extends RecyclerView.Adapter<EventDetailsLi
   }
 
   @Override public int getItemCount() {
-    return mlist.size();
+    return eventsDetailsList.size();
   }
 
   public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
      TextView txt_Name,txt_Date,txt_location;
      ImageView img_eventlogo;
      CardView card;
-       FirebaseDatabaseTableEventDetails eventDetails;
+       EventsDetailsBodyModel eventDetails;
      public MyViewHolder(View itemView) {
       super(itemView);
       txt_Name = itemView.findViewById(R.id.text_eventname);
@@ -62,9 +71,9 @@ public class EventDetailsListAdapter extends RecyclerView.Adapter<EventDetailsLi
 
     public void UpdateUI(int position){
 
-       eventDetails = mlist.get(position);
+       eventDetails = eventsDetailsList.get(position);
        txt_Name.setText(eventDetails.getEventName());
-       txt_Date.setText(eventDetails.getEventData());
+       txt_Date.setText(eventDetails.getEventDate());
        txt_location.setText(eventDetails.getEventLocation());
       Glide.with(context)
            .load(eventDetails.getEventImage())

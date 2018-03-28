@@ -5,21 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
     >
 
   <android.support.design.widget.AppBarLayout
       android:id="@+id/appbar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:fitsSystemWindows="true"
       >
 
     <android.support.design.widget.CollapsingToolbarLayout
         android:id="@+id/collapsing_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:expandedTitleMarginStart="48dp"
+        app:expandedTitleMarginEnd="64dp"
         app:layout_scrollFlags="scroll|exitUntilCollapsed"
         app:expandedTitleTextAppearance="@android:color/white">
 
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back"
+            app:layout_collapseMode="parallax"
+            android:visibility="invisible"/>
       <ImageView
           android:id="@+id/image_collapsing_toolbar"
           android:layout_width="match_parent"
@@ -28,19 +41,35 @@
           tools:src="@drawable/sample"
           app:layout_collapseMode="parallax"
           />
-
-
-      <android.support.v7.widget.Toolbar
-          android:id="@+id/toolbar"
+      <RelativeLayout
           android:layout_width="match_parent"
-          android:layout_height="?attr/actionBarSize"
-          android:background="?attr/colorPrimary"
-          app:layout_collapseMode="pin"
-          android:theme="@style/myCustomMenuTextAppearance"
-          app:titleTextColor="@android:color/white"
+          android:layout_height="wrap_content"
+          android:layout_gravity="bottom"
+          android:background="@color/black_semi_trans">
 
-          />
+        <TextView
+            android:id="@+id/text_eventname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="sports and fun"
+            android:textSize="20sp"
+            android:padding="7dp"
+            app:layout_collapseMode="parallax"
+            android:textColor="@android:color/white"/>
 
+      </RelativeLayout>
+
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:layout_collapseMode="pin"
+            android:theme="@style/myCustomMenuTextAppearance"
+            app:titleTextColor="@android:color/white"
+            />
     </android.support.design.widget.CollapsingToolbarLayout>
   </android.support.design.widget.AppBarLayout>
 
@@ -75,6 +104,14 @@
           android:background="@drawable/roundedcorner"
           />
 
+        <ImageView
+            android:id="@+id/punchit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            tools:src="@drawable/icons_didnotpunch"
+            android:clickable="true"
+            android:layout_margin="7dp"/>
     </LinearLayout>
   </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

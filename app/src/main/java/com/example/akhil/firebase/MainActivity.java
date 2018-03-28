@@ -9,6 +9,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -19,6 +21,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import es.dmoral.toasty.Toasty;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   private TextInputEditText etEmail,etPassword;
   private Button btnLogin;
   private FirebaseAuth auth;
+  private TextView register;
 
 
 
@@ -39,13 +46,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     etEmail = findViewById(R.id.EditText_email);
     etPassword = findViewById(R.id.EditText_password);
     btnLogin = findViewById(R.id.button_login);
+    register = findViewById(R.id.register);
     btnLogin.setOnClickListener(this);
+    register.setOnClickListener(this);
     btnLogin.setText("login");
+    //insertIntoFirebase();
 
   }
 
   @Override public void onClick(View v) {
+      if(v.getId()==R.id.button_login)
       validateLogin();
+      else if(v.getId()==R.id.register) {
+          Intent intent = new Intent(this, AddDetailsActivity.class);
+           startActivity(intent);
+      }
+
   }
 
   private void validateLogin(){
@@ -57,9 +73,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
       etPassword.setError("enter password");
     }
     else {
-      loginWithFirebase();
+    //  loginWithFirebase();
+        loginWithFirebaseRest();
     }
   }
+
+  private void loginWithFirebaseRest(){
+
+
+      RestClient restClient = new RestClient();
+
+      LoginBody user = new LoginBody();
+      user.setEmail(etEmail.getText().toString().trim());
+      user.setPassword(etPassword.getText().toString().trim());
+      user.setReturnSecureToken(true);
+      Call<LoginResponse> call = restClient.getLoginService().loginUser(user);
+      call.enqueue(new Callback<LoginResponse>() {
+          @Override
+          public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+              if(response.code()==200)
+              {
+                Toasty.success(MainActivity.this,"login success").show();
+                LoginResponse loginResponse = response.body();
+                String uid = loginResponse.getLocalId();
+                Intent intent = new Intent(MainActivity.this,DetailsListActivity.class);
+                intent.putExtra("uid",uid);
+                startActivity(intent);
+
+              }
+          }
+
+          @Override
+          public void onFailure(Call<LoginResponse> call, Throwable t) {
+
+          }
+      });
+
+  }
+
 
   private void loginWithFirebase() {
        String email = etEmail.getText().toString().trim();
@@ -83,16 +134,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 private void insertIntoFirebase(){
   DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("events");
   FirebaseDatabaseTableEventDetails eventDetails = new FirebaseDatabaseTableEventDetails();
+  String eventId = CommonUtils.randomString(6);
+  eventDetails.setEventId(eventId);
   eventDetails.setEventName("sports");
   eventDetails.setEventDescription("enjoy sports and have fun");
   eventDetails.setEventData("12-08-18");
   eventDetails.setEventLocation("hyderabad");
   eventDetails.setEventImage("http://cdn.playbuzz.com/cdn/dc684763-c546-43fa-80b8-91c5627d00b7/0e1d574c-3cc1-4008-8c80-98e900f2b76e.jpg");
   List<String> mlist = new ArrayList<>();
-  mlist.add(auth.getUid());
+  mlist.add("");
   eventDetails.setPunchedlist(mlist);
   String uid = mDatabase.push().getKey();
-   mDatabase.child(uid).setValue(eventDetails);
+   mDatabase.child(eventId).setValue(eventDetails);
   }
 
 

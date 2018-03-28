@@ -36,6 +36,14 @@ dependencies {
   compile 'com.android.support:recyclerview-v7:26.1.0'
   compile 'jp.wasabeef:recyclerview-animators:2.2.5'
 
+    /*Retrofit:-*/
+            compile 'com.squareup.retrofit2:retrofit:2.1.0'
+
+    /*RetorifitGson:-*/
+            compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+
+    /*Retrofit okhttp3:-*/
+            compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 
 }
 apply plugin: 'com.google.gms.google-services'
