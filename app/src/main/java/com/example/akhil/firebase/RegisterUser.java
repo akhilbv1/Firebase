@@ -17,7 +17,7 @@ import retrofit2.Response;
   Created by akhil on 28/3/18.
  */
 
-public class AddDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
     TextInputEditText etEmail,etUsername,etMobile,etPassword,etConfPassword;
     Button register;
 
@@ -78,13 +78,13 @@ public class AddDetailsActivity extends AppCompatActivity implements View.OnClic
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.code()==200)
                 {
-                    Toasty.success(AddDetailsActivity.this,"Success").show();
+                    Toasty.success(RegisterUser.this,"Success").show();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toasty.error(AddDetailsActivity.this,"failure").show();
+                Toasty.error(RegisterUser.this,"failure").show();
 
             }
         });

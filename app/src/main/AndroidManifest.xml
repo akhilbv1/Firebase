@@ -23,7 +23,7 @@
         android:theme="@style/AppTheme"/>
 
     <activity android:name=".DetailsActivity"/>
-      <activity android:name=".AddDetailsActivity" />
+      <activity android:name=".RegisterUser" />
   </application>
 
 </manifest>
